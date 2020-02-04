@@ -1,0 +1,860 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/dappcoin-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# dappcoin qt core #
+QT_TS = \
+  qt/locale/dappcoin_bg.ts \
+  qt/locale/dappcoin_ca.ts \
+  qt/locale/dappcoin_cs.ts \
+  qt/locale/dappcoin_da.ts \
+  qt/locale/dappcoin_de.ts \
+  qt/locale/dappcoin_en.ts \
+  qt/locale/dappcoin_en_GB.ts \
+  qt/locale/dappcoin_en_US.ts \
+  qt/locale/dappcoin_eo.ts \
+  qt/locale/dappcoin_es.ts \
+  qt/locale/dappcoin_es_ES.ts \
+  qt/locale/dappcoin_fi.ts \
+  qt/locale/dappcoin_fr_FR.ts \
+  qt/locale/dappcoin_hi_IN.ts \
+  qt/locale/dappcoin_hr.ts \
+  qt/locale/dappcoin_hr_HR.ts \
+  qt/locale/dappcoin_it.ts \
+  qt/locale/dappcoin_ja.ts \
+  qt/locale/dappcoin_ko_KR.ts \
+  qt/locale/dappcoin_lt_LT.ts \
+  qt/locale/dappcoin_nl.ts \
+  qt/locale/dappcoin_pl.ts \
+  qt/locale/dappcoin_pt.ts \
+  qt/locale/dappcoin_pt_BR.ts \
+  qt/locale/dappcoin_ro_RO.ts \
+  qt/locale/dappcoin_ru.ts \
+  qt/locale/dappcoin_sk.ts \
+  qt/locale/dappcoin_sv.ts \
+  qt/locale/dappcoin_tr.ts \
+  qt/locale/dappcoin_uk.ts \
+  qt/locale/dappcoin_vi.ts \
+  qt/locale/dappcoin_zh_CN.ts \
+  qt/locale/dappcoin_zh_TW.ts
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/blockexplorer.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/governancepage.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/optionsdialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/dappcoin/forms/loadingdialog.ui \
+  qt/forms/xdappcontroldialog.ui \
+  qt/dappcoin/forms/snackbar.ui \
+  qt/dappcoin/forms/navmenuwidget.ui \
+  qt/dappcoin/forms/lockunlock.ui \
+  qt/dappcoin/forms/expandablebutton.ui \
+  qt/dappcoin/forms/receivedialog.ui \
+  qt/dappcoin/forms/walletpassworddialog.ui \
+  qt/dappcoin/forms/topbar.ui \
+  qt/dappcoin/forms/txrow.ui \
+  qt/dappcoin/forms/dashboardwidget.ui \
+  qt/dappcoin/forms/coincontroldappwidget.ui \
+  qt/dappcoin/forms/addresslabelrow.ui \
+  qt/dappcoin/forms/contactdropdownrow.ui \
+  qt/dappcoin/forms/mninfodialog.ui \
+  qt/dappcoin/forms/optionbutton.ui \
+  qt/dappcoin/forms/masternodewizarddialog.ui \
+  qt/dappcoin/forms/mnrow.ui \
+  qt/dappcoin/forms/masternodeswidget.ui \
+  qt/dappcoin/forms/myaddressrow.ui \
+  qt/dappcoin/forms/csrow.ui \
+  qt/dappcoin/forms/sendchangeaddressdialog.ui \
+  qt/dappcoin/forms/sendconfirmdialog.ui \
+  qt/dappcoin/forms/sendcustomfeedialog.ui \
+  qt/dappcoin/forms/sendchangeaddressdialog.ui \
+  qt/dappcoin/forms/sendmultirow.ui \
+  qt/dappcoin/forms/send.ui \
+  qt/dappcoin/forms/addnewaddressdialog.ui \
+  qt/dappcoin/forms/addnewcontactdialog.ui \
+  qt/dappcoin/forms/requestdialog.ui \
+  qt/dappcoin/forms/receivewidget.ui \
+  qt/dappcoin/forms/tooltipmenu.ui \
+  qt/dappcoin/forms/addresseswidget.ui \
+  qt/dappcoin/forms/defaultdialog.ui \
+  qt/dappcoin/forms/denomgenerationdialog.ui \
+  qt/dappcoin/forms/privacywidget.ui \
+  qt/dappcoin/forms/coldstakingwidget.ui \
+  qt/dappcoin/settings/forms/settingsbackupwallet.ui \
+  qt/dappcoin/settings/forms/settingsbittoolwidget.ui \
+  qt/dappcoin/settings/forms/settingsconsolewidget.ui \
+  qt/dappcoin/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/dappcoin/settings/forms/settingsfaqwidget.ui \
+  qt/dappcoin/settings/forms/settingsinformationwidget.ui \
+  qt/dappcoin/settings/forms/settingsmainoptionswidget.ui \
+  qt/dappcoin/settings/forms/settingsmultisenddialog.ui \
+  qt/dappcoin/settings/forms/settingsmultisendwidget.ui \
+  qt/dappcoin/settings/forms/settingssignmessagewidgets.ui \
+  qt/dappcoin/settings/forms/settingswalletoptionswidget.ui \
+  qt/dappcoin/settings/forms/settingswalletrepairwidget.ui \
+  qt/dappcoin/settings/forms/settingswidget.ui \
+  qt/dappcoin/forms/welcomecontentwidget.ui \
+  qt/dappcoin/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/moc_bitcoinamountfield.cpp \
+  qt/dappcoin/moc_dappcoingui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_blockexplorer.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_governancepage.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsdialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_proposalframe.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_splashscreen.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactiondesc.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/dappcoin/moc_loadingdialog.cpp \
+  qt/moc_xdappcontroldialog.cpp \
+  qt/dappcoin/moc_pwidget.cpp \
+  qt/dappcoin/moc_snackbar.cpp \
+  qt/dappcoin/moc_navmenuwidget.cpp \
+  qt/dappcoin/moc_lockunlock.cpp \
+  qt/dappcoin/moc_expandablebutton.cpp \
+  qt/dappcoin/moc_furabstractlistitemdelegate.cpp \
+  qt/dappcoin/moc_receivedialog.cpp \
+  qt/dappcoin/moc_walletpassworddialog.cpp \
+  qt/dappcoin/moc_pfborderimage.cpp \
+  qt/dappcoin/moc_topbar.cpp \
+  qt/dappcoin/moc_txrow.cpp \
+  qt/dappcoin/moc_dashboardwidget.cpp \
+  qt/dappcoin/moc_coincontroldappwidget.cpp \
+  qt/dappcoin/moc_addresslabelrow.cpp \
+  qt/dappcoin/moc_contactdropdownrow.cpp \
+  qt/dappcoin/moc_mninfodialog.cpp \
+  qt/dappcoin/moc_optionbutton.cpp \
+  qt/dappcoin/moc_coldstakingmodel.cpp \
+  qt/dappcoin/moc_mnmodel.cpp \
+  qt/dappcoin/moc_masternodewizarddialog.cpp \
+  qt/dappcoin/moc_mnrow.cpp \
+  qt/dappcoin/moc_masternodeswidget.cpp \
+  qt/dappcoin/moc_myaddressrow.cpp \
+  qt/dappcoin/moc_csrow.cpp \
+  qt/dappcoin/moc_contactsdropdown.cpp \
+  qt/dappcoin/moc_sendchangeaddressdialog.cpp \
+  qt/dappcoin/moc_sendconfirmdialog.cpp \
+  qt/dappcoin/moc_sendcustomfeedialog.cpp \
+  qt/dappcoin/moc_sendchangeaddressdialog.cpp \
+  qt/dappcoin/moc_sendmultirow.cpp \
+  qt/dappcoin/moc_send.cpp \
+  qt/dappcoin/moc_addnewaddressdialog.cpp \
+  qt/dappcoin/moc_addnewcontactdialog.cpp \
+  qt/dappcoin/moc_requestdialog.cpp \
+  qt/dappcoin/moc_receivewidget.cpp \
+  qt/dappcoin/moc_tooltipmenu.cpp \
+  qt/dappcoin/moc_addresseswidget.cpp \
+  qt/dappcoin/moc_defaultdialog.cpp \
+  qt/dappcoin/moc_denomgenerationdialog.cpp \
+  qt/dappcoin/moc_privacywidget.cpp \
+  qt/dappcoin/moc_coldstakingwidget.cpp \
+  qt/dappcoin/settings/moc_settingsbackupwallet.cpp \
+  qt/dappcoin/settings/moc_settingsbittoolwidget.cpp \
+  qt/dappcoin/settings/moc_settingsconsolewidget.cpp \
+  qt/dappcoin/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/dappcoin/settings/moc_settingsfaqwidget.cpp \
+  qt/dappcoin/settings/moc_settingsinformationwidget.cpp \
+  qt/dappcoin/settings/moc_settingsmainoptionswidget.cpp \
+  qt/dappcoin/settings/moc_settingsmultisenddialog.cpp \
+  qt/dappcoin/settings/moc_settingsmultisendwidget.cpp \
+  qt/dappcoin/settings/moc_settingssignmessagewidgets.cpp \
+  qt/dappcoin/settings/moc_settingswalletoptionswidget.cpp \
+  qt/dappcoin/settings/moc_settingswalletrepairwidget.cpp \
+  qt/dappcoin/settings/moc_settingswidget.cpp \
+  qt/dappcoin/moc_welcomecontentwidget.cpp \
+  qt/dappcoin/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/dappcoin.moc \
+  qt/bitcoinamountfield.moc \
+  qt/intro.moc \
+  qt/rpcconsole.moc \
+  qt/dappcoin/settings/moc_settingsconsolewidget.cpp
+
+QT_QRC_CPP = qt/qrc_dappcoin.cpp
+QT_QRC = qt/dappcoin.qrc
+QT_QRC_LOCALE_CPP = qt/qrc_dappcoin_locale.cpp
+QT_QRC_LOCALE = qt/dappcoin_locale.qrc
+
+PROTOBUF_CC = qt/paymentrequest.pb.cc
+PROTOBUF_H = qt/paymentrequest.pb.h
+PROTOBUF_PROTO = qt/paymentrequest.proto
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/bitcoinamountfield.h \
+  qt/dappcoin/dappcoingui.h \
+  qt/bitcoinunits.h \
+  qt/blockexplorer.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/governancepage.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsdialog.h \
+  qt/optionsmodel.h \
+  qt/paymentrequestplus.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/proposalframe.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/splashscreen.h \
+  qt/trafficgraphwidget.h \
+  qt/transactiondesc.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/dappcoin/prunnable.h \
+  qt/dappcoin/pfborderimage.h \
+  qt/dappcoin/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/xdappcontroldialog.h \
+  qt/dappcoin/pwidget.h \
+  qt/dappcoin/guitransactionsutils.h \
+  qt/dappcoin/snackbar.h \
+  qt/dappcoin/navmenuwidget.h \
+  qt/dappcoin/lockunlock.h \
+  qt/dappcoin/receivedialog.h \
+  qt/dappcoin/furlistrow.h \
+  qt/dappcoin/furabstractlistitemdelegate.h \
+  qt/dappcoin/txviewholder.h \
+  qt/dappcoin/qtutils.h \
+  qt/dappcoin/expandablebutton.h \
+  qt/dappcoin/walletpassworddialog.h \
+  qt/dappcoin/topbar.h \
+  qt/dappcoin/txrow.h \
+  qt/dappcoin/addressholder.h \
+  qt/dappcoin/addressfilterproxymodel.h \
+  qt/dappcoin/dashboardwidget.h \
+  qt/dappcoin/coincontroldappwidget.h \
+  qt/dappcoin/addresslabelrow.h \
+  qt/dappcoin/contactdropdownrow.h \
+  qt/dappcoin/mninfodialog.h \
+  qt/dappcoin/optionbutton.h \
+  qt/dappcoin/coldstakingmodel.h \
+  qt/dappcoin/mnmodel.h \
+  qt/dappcoin/masternodewizarddialog.h \
+  qt/dappcoin/mnrow.h \
+  qt/dappcoin/masternodeswidget.h \
+  qt/dappcoin/myaddressrow.h \
+  qt/dappcoin/csrow.h \
+  qt/dappcoin/contactsdropdown.h \
+  qt/dappcoin/sendchangeaddressdialog.h \
+  qt/dappcoin/sendconfirmdialog.h \
+  qt/dappcoin/sendcustomfeedialog.h \
+  qt/dappcoin/sendchangeaddressdialog.h \
+  qt/dappcoin/sendmultirow.h \
+  qt/dappcoin/send.h \
+  qt/dappcoin/addnewaddressdialog.h \
+  qt/dappcoin/addnewcontactdialog.h \
+  qt/dappcoin/requestdialog.h \
+  qt/dappcoin/receivewidget.h \
+  qt/dappcoin/tooltipmenu.h \
+  qt/dappcoin/addresseswidget.h \
+  qt/dappcoin/defaultdialog.h \
+  qt/dappcoin/denomgenerationdialog.h \
+  qt/dappcoin/privacywidget.h \
+  qt/dappcoin/coldstakingwidget.h \
+  qt/dappcoin/settings/settingsbackupwallet.h \
+  qt/dappcoin/settings/settingsbittoolwidget.h \
+  qt/dappcoin/settings/settingsconsolewidget.h \
+  qt/dappcoin/settings/settingsdisplayoptionswidget.h \
+  qt/dappcoin/settings/settingsfaqwidget.h \
+  qt/dappcoin/settings/settingsinformationwidget.h \
+  qt/dappcoin/settings/settingsmainoptionswidget.h \
+  qt/dappcoin/settings/settingsmultisenddialog.h \
+  qt/dappcoin/settings/settingsmultisendwidget.h \
+  qt/dappcoin/settings/settingssignmessagewidgets.h \
+  qt/dappcoin/settings/settingswalletoptionswidget.h \
+  qt/dappcoin/settings/settingswalletrepairwidget.h \
+  qt/dappcoin/settings/settingswidget.h \
+  qt/dappcoin/welcomecontentwidget.h \
+  qt/dappcoin/splash.h
+
+RES_ICONS = \
+  qt/res/icons/add.png \
+  qt/res/icons/address-book.png \
+  qt/res/icons/automint_active.png \
+  qt/res/icons/automint_inactive.png \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/bitcoin_testnet.ico \
+  qt/res/icons/bitcoin_testnet.png \
+  qt/res/icons/bitcoin_regtest.png \
+  qt/res/icons/browse.png \
+  qt/res/icons/clock1.png \
+  qt/res/icons/clock2.png \
+  qt/res/icons/clock3.png \
+  qt/res/icons/clock4.png \
+  qt/res/icons/clock5.png \
+  qt/res/icons/configure.png \
+  qt/res/icons/connect0_16.png \
+  qt/res/icons/connect1_16.png \
+  qt/res/icons/connect2_16.png \
+  qt/res/icons/connect3_16.png \
+  qt/res/icons/connect4_16.png \
+  qt/res/icons/debugwindow.png \
+  qt/res/icons/edit.png \
+  qt/res/icons/editcopy.png \
+  qt/res/icons/editpaste.png \
+  qt/res/icons/explorer.png \
+  qt/res/icons/export.png \
+  qt/res/icons/eye.png \
+  qt/res/icons/eye_minus.png \
+  qt/res/icons/eye_plus.png \
+  qt/res/icons/filesave.png \
+  qt/res/icons/history.png \
+  qt/res/icons/key.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/masternodes.png \
+  qt/res/icons/onion.png \
+  qt/res/icons/overview.png \
+  qt/res/icons/qrcode.png \
+  qt/res/icons/quit.png \
+  qt/res/icons/receive.png \
+  qt/res/icons/receive_dark.png \
+  qt/res/icons/privacy.png \
+  qt/res/icons/remove.png \
+  qt/res/icons/send.png \
+  qt/res/icons/send_dark.png \
+  qt/res/icons/governance.png \
+  qt/res/icons/governance_dark.png \
+  qt/res/icons/staking_active.png \
+  qt/res/icons/staking_inactive.png \
+  qt/res/icons/synced.png \
+  qt/res/icons/trade.png \
+  qt/res/icons/transaction0.png \
+  qt/res/icons/transaction2.png \
+  qt/res/icons/transaction_conflicted.png \
+  qt/res/icons/tx_inout.png \
+  qt/res/icons/tx_input.png \
+  qt/res/icons/tx_output.png \
+  qt/res/icons/tx_mined.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
+  qt/res/icons/unit_dappcoin.png \
+  qt/res/icons/unit_mdappcoin.png \
+  qt/res/icons/unit_udappcoin.png \
+  qt/res/icons/unit_tdappcoin.png \
+  qt/res/icons/unit_tmdappcoin.png \
+  qt/res/icons/unit_tudappcoin.png \
+  qt/res/icons/yesvote.png \
+  qt/res/icons/novote.png \
+  qt/res/icons/abstainvote.png \
+  qt/dappcoin/res/img/bg-dashboard-banner.png \
+  qt/dappcoin/res/img/bg-multi-number-dark.svg \
+  qt/dappcoin/res/img/ic-check-locked.svg \
+  qt/dappcoin/res/img/ic-nav-address.svg \
+  qt/dappcoin/res/img/ic-update.svg \
+  qt/dappcoin/res/img/bg-multi-number.svg \
+  qt/dappcoin/res/img/ic-check-mint-off.svg \
+  qt/dappcoin/res/img/ic-nav-cold-staking.svg \
+  qt/dappcoin/res/img/ic-nav-cold-staking-active.svg \
+  qt/dappcoin/res/img/ic-nav-dashboard-active.svg \
+  qt/dappcoin/res/img/ic-wallet-status-locked.svg \
+  qt/dappcoin/res/img/bg-splash.svg \
+  qt/dappcoin/res/img/bg-splash.png \
+  qt/dappcoin/res/img/ic-check-mint.svg \
+  qt/dappcoin/res/img/ic-nav-dashboard-hover.svg \
+  qt/dappcoin/res/img/ic-wallet-status-staking.svg \
+  qt/dappcoin/res/img/ic-check-peers-off.svg \
+  qt/dappcoin/res/img/ic-nav-dashboard.svg \
+  qt/dappcoin/res/img/ic-wallet-status-unlocked.svg \
+  qt/dappcoin/res/img/ic-check-peers.svg \
+  qt/dappcoin/res/img/ic-nav-master-active.svg \
+  qt/dappcoin/res/img/ic-watch-password-white.svg \
+  qt/dappcoin/res/img/bg-welcome-container.jpg \
+  qt/dappcoin/res/img/bg-welcome-container.png \
+  qt/dappcoin/res/img/bg-welcome-container.svg \
+  qt/dappcoin/res/img/bg-welcome-container@2x.png \
+  qt/dappcoin/res/img/bg-welcome-container@3x.png \
+  qt/dappcoin/res/img/ic-check-staking-off.svg \
+  qt/dappcoin/res/img/ic-nav-master-hover.svg \
+  qt/dappcoin/res/img/ic-watch-password.svg \
+  qt/dappcoin/res/img/bg-welcome.jpg \
+  qt/dappcoin/res/img/bg-welcome.svg \
+  qt/dappcoin/res/img/bg-welcome@2x.jpg \
+  qt/dappcoin/res/img/bg-welcome@3x.jpg \
+  qt/dappcoin/res/img/bg-welcome.png \
+  qt/dappcoin/res/img/ic-check-staking.svg \
+  qt/dappcoin/res/img/ic-nav-master.svg \
+  qt/dappcoin/res/img/img-dashboard-banner.jpg \
+  qt/dappcoin/res/img/btn-radio-active.svg \
+  qt/dappcoin/res/img/ic-check-sync-off.svg \
+  qt/dappcoin/res/img/ic-nav-privacy-active.svg \
+  qt/dappcoin/res/img/img-empty-contacts.svg \
+  qt/dappcoin/res/img/btn-radio-off.svg \
+  qt/dappcoin/res/img/ic-check-sync.png \
+  qt/dappcoin/res/img/ic-nav-privacy-hover.svg \
+  qt/dappcoin/res/img/img-empty-dark-contacts.svg \
+  qt/dappcoin/res/img/ic-contact-arrow-down.svg \
+  qt/dappcoin/res/img/ic-contact-arrow-down-white.svg \
+  qt/dappcoin/res/img/ic-check-sync.svg \
+  qt/dappcoin/res/img/ic-check-faq.svg \
+  qt/dappcoin/res/img/ic-nav-privacy.svg \
+  qt/dappcoin/res/img/img-empty-dark-error.svg \
+  qt/dappcoin/res/img/ic-add-label.svg \
+  qt/dappcoin/res/img/ic-pending.svg \
+  qt/dappcoin/res/img/ic-check-theme-dark.svg \
+  qt/dappcoin/res/img/ic-nav-receive-active.svg \
+  qt/dappcoin/res/img/img-empty-dark-masternode.svg \
+  qt/dappcoin/res/img/ic-add-liliac.svg \
+  qt/dappcoin/res/img/ic-check-theme-light.svg \
+  qt/dappcoin/res/img/ic-nav-receive-hover.svg \
+  qt/dappcoin/res/img/img-empty-dark-multisend.svg \
+  qt/dappcoin/res/img/ic-add-purple.svg \
+  qt/dappcoin/res/img/ic-check-white.svg \
+  qt/dappcoin/res/img/ic-nav-receive.svg \
+  qt/dappcoin/res/img/img-empty-dark-peers.svg \
+  qt/dappcoin/res/img/ic-add.svg \
+  qt/dappcoin/res/img/ic-check.svg \
+  qt/dappcoin/res/img/ic-nav-send-active.svg \
+  qt/dappcoin/res/img/img-empty-dark-staking-off.svg \
+  qt/dappcoin/res/img/img-empty-dark-staking-on.svg \
+  qt/dappcoin/res/img/ic-address-book-grey.svg \
+  qt/dappcoin/res/img/ic-chevron-left.svg \
+  qt/dappcoin/res/img/ic-nav-send-hover.svg \
+  qt/dappcoin/res/img/img-empty-dark-transactions.svg \
+  qt/dappcoin/res/img/ic-address-book-white.svg \
+  qt/dappcoin/res/img/ic-chevron-right.svg \
+  qt/dappcoin/res/img/ic-nav-send.svg \
+  qt/dappcoin/res/img/img-empty-error.svg \
+  qt/dappcoin/res/img/ic-address-book.svg \
+  qt/dappcoin/res/img/ic-clear-liliac.svg \
+  qt/dappcoin/res/img/ic-nav-settings-active.svg \
+  qt/dappcoin/res/img/img-empty-masternode.svg \
+  qt/dappcoin/res/img/ic-address-send-white.svg \
+  qt/dappcoin/res/img/ic-clear-purple.svg \
+  qt/dappcoin/res/img/ic-nav-settings-hover.svg \
+  qt/dappcoin/res/img/img-empty-multisend.svg \
+  qt/dappcoin/res/img/ic-address-send.svg \
+  qt/dappcoin/res/img/ic-close-white.svg \
+  qt/dappcoin/res/img/ic-nav-settings.svg \
+  qt/dappcoin/res/img/img-empty-peers.svg \
+  qt/dappcoin/res/img/img-empty-privacy.svg \
+  qt/dappcoin/res/img/img-empty-privacy-dark.svg \
+  qt/dappcoin/res/img/ic-arrow-drop-down-white.svg \
+  qt/dappcoin/res/img/ic-close.svg \
+  qt/dappcoin/res/img/ic-radio-liliac-on.svg \
+  qt/dappcoin/res/img/img-empty-staking-off.svg \
+  qt/dappcoin/res/img/ic-arrow-drop-down.svg \
+  qt/dappcoin/res/img/ic-coin-dapp.svg \
+  qt/dappcoin/res/img/ic-receive-off.svg \
+  qt/dappcoin/res/img/img-empty-staking-on.svg \
+  qt/dappcoin/res/img/ic-arrow-drop-up-white.svg \
+  qt/dappcoin/res/img/ic-coin-xdapp.png \
+  qt/dappcoin/res/img/ic-receive-on.svg \
+  qt/dappcoin/res/img/img-empty-transactions.svg \
+  qt/dappcoin/res/img/ic-arrow-drop-up.svg \
+  qt/dappcoin/res/img/ic-coin-xdapp.svg \
+  qt/dappcoin/res/img/ic-received.svg \
+  qt/dappcoin/res/img/img-logo-dappcoin.png \
+  qt/dappcoin/res/img/ic-arrow-drop-white-down.svg \
+  qt/dappcoin/res/img/ic-combo-box.svg \
+  qt/dappcoin/res/img/ic-send.svg \
+  qt/dappcoin/res/img/img-logo-dappcoin@2x.png \
+  qt/dappcoin/res/img/ic-arrow-purple-down.svg \
+  qt/dappcoin/res/img/ic-connect.svg \
+  qt/dappcoin/res/img/ic-submenu-lock.svg \
+  qt/dappcoin/res/img/img-logo-dappcoin@3x.png \
+  qt/dappcoin/res/img/img-logo-dappcoin.png \
+  qt/dappcoin/res/img/ic-arrow-right-white.svg \
+  qt/dappcoin/res/img/ic-arrow-left-white.svg \
+  qt/dappcoin/res/img/ic-arrow-left.svg \
+  qt/dappcoin/res/img/ic-copy-liliac.svg \
+  qt/dappcoin/res/img/ic-submenu-staking.svg \
+  qt/dappcoin/res/img/img-nav-logo-dappcoin.png \
+  qt/dappcoin/res/img/ic-arrow-right.svg \
+  qt/dappcoin/res/img/ic-copy.svg \
+  qt/dappcoin/res/img/ic-copy-big.svg \
+  qt/dappcoin/res/img/ic-copy-big-white.svg \
+  qt/dappcoin/res/img/ic-submenu-unlock.svg \
+  qt/dappcoin/res/img/img-nav-logo.png \
+  qt/dappcoin/res/img/ic-arrow-white-left.svg \
+  qt/dappcoin/res/img/ic-exit.svg \
+  qt/dappcoin/res/img/ic-switch-liliac-on.svg \
+  qt/dappcoin/res/img/img-nav-logo.png \
+  qt/dappcoin/res/img/ic-arrow-white-right.svg \
+  qt/dappcoin/res/img/ic-expand.svg \
+  qt/dappcoin/res/img/ic-switch-off.svg \
+  qt/dappcoin/res/img/img-qr-test-big.png \
+  qt/dappcoin/res/img/ic-check-active.svg \
+  qt/dappcoin/res/img/ic-folder.svg \
+  qt/dappcoin/res/img/ic-switch-on.svg \
+  qt/dappcoin/res/img/img-qr-test.png \
+  qt/dappcoin/res/img/ic-check-box.svg \
+  qt/dappcoin/res/img/ic-check-box-dark-active.svg \
+  qt/dappcoin/res/img/ic-check-box-indeterminate.svg \
+  qt/dappcoin/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/dappcoin/res/img/ic-label-liliac.svg \
+  qt/dappcoin/res/img/ic-transaction-warning.svg \
+  qt/dappcoin/res/img/ic-transaction-mint.svg \
+  qt/dappcoin/res/img/ic-transaction-mint-inactive.svg \
+  qt/dappcoin/res/img/ic-check-cold-staking.svg \
+  qt/dappcoin/res/img/ic-check-cold-staking-off.svg \
+  qt/dappcoin/res/img/ic-check-cold-staking-enabled.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-cs-contract.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-cs-contract-inactive.svg \
+  qt/dappcoin/res/img/img-qr.svg \
+  qt/dappcoin/res/img/ic-check-connect-off.svg \
+  qt/dappcoin/res/img/ic-label.svg \
+  qt/dappcoin/res/img/ic-transaction-received.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-received.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-warning.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-mint.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/dappcoin/res/img/ic-transaction-received-inactive.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/dappcoin/res/img/img-welcome-step1.png \
+  qt/dappcoin/res/img/ic-check-connect.svg \
+  qt/dappcoin/res/img/ic-menu-hover.svg \
+  qt/dappcoin/res/img/ic-transaction-sent.svg \
+  qt/dappcoin/res/img/ic-transaction-sent-inactive.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-sent.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/dappcoin/res/img/img-welcome-step2.png \
+  qt/dappcoin/res/img/ic-check-dark.svg \
+  qt/dappcoin/res/img/ic-mint.svg \
+  qt/dappcoin/res/img/ic-transaction-staked.svg \
+  qt/dappcoin/res/img/ic-transaction-staked-inactive.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-staked.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/dappcoin/res/img/img-welcome-step3.png \
+  qt/dappcoin/res/img/ic-check-liliac-on.svg \
+  qt/dappcoin/res/img/ic-nav-address-active.svg \
+  qt/dappcoin/res/img/ic-unlock-staking.svg \
+  qt/dappcoin/res/img/img-welcome-step4.png \
+  qt/dappcoin/res/img/ic-check-locked-off.svg \
+  qt/dappcoin/res/img/ic-nav-address-hover.svg \
+  qt/dappcoin/res/img/ic-update-liliac.svg \
+  qt/dappcoin/res/img/ic-arrow-drop-down-purple.svg \
+  qt/dappcoin/res/img/ic-arrow-drop-up-purple.svg \
+  qt/dappcoin/res/img/ic-check-liliac-indeterminate.svg \
+  qt/dappcoin/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/dappcoin/res/img/ic-transaction-stake-delegated.svg \
+  qt/dappcoin/res/img/ic-transaction-stake-delegated-inactive.svg \
+  qt/dappcoin/res/img/ic-transaction-stake-hot.svg \
+  qt/dappcoin/res/img/ic-transaction-stake-hot-inactive.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-stake-hot.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-stake-hot-inactive.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-stake-delegated.svg \
+  qt/dappcoin/res/img/dark/ic-transaction-stake-delegated-inactive.svg \
+  qt/dappcoin/res/img/ic-transaction-cs-contract.svg \
+  qt/dappcoin/res/img/ic-transaction-cs-contract-inactive.svg \
+  qt/dappcoin/res/img/ic-check-box-indeterminate.svg \
+  qt/dappcoin/res/img/ani-loading-dark.gif \
+  qt/dappcoin/res/img/ani-loading.gif
+
+
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/bitcoinamountfield.cpp \
+  qt/dappcoin/dappcoingui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/blockexplorer.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsdialog.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/splashscreen.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/blockexplorer.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/governancepage.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentrequestplus.cpp \
+  qt/paymentserver.cpp \
+  qt/proposalframe.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactiondesc.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/dappcoin/loadingdialog.cpp \
+  qt/xdappcontroldialog.cpp \
+  qt/dappcoin/pwidget.cpp \
+  qt/dappcoin/guitransactionsutils.cpp \
+  qt/dappcoin/snackbar.cpp \
+  qt/dappcoin/navmenuwidget.cpp \
+  qt/dappcoin/lockunlock.cpp \
+  qt/dappcoin/receivedialog.cpp \
+  qt/dappcoin/furabstractlistitemdelegate.cpp \
+  qt/dappcoin/txviewholder.cpp \
+  qt/dappcoin/qtutils.cpp \
+  qt/dappcoin/expandablebutton.cpp \
+  qt/dappcoin/walletpassworddialog.cpp \
+  qt/dappcoin/topbar.cpp \
+  qt/dappcoin/txrow.cpp \
+  qt/dappcoin/addressholder.cpp \
+  qt/dappcoin/addressfilterproxymodel.cpp \
+  qt/dappcoin/dashboardwidget.cpp \
+  qt/dappcoin/coincontroldappwidget.cpp \
+  qt/dappcoin/addresslabelrow.cpp \
+  qt/dappcoin/contactdropdownrow.cpp \
+  qt/dappcoin/contactsdropdown.cpp \
+  qt/dappcoin/optionbutton.cpp \
+  qt/dappcoin/mninfodialog.cpp \
+  qt/dappcoin/coldstakingmodel.cpp \
+  qt/dappcoin/mnmodel.cpp \
+  qt/dappcoin/masternodewizarddialog.cpp \
+  qt/dappcoin/mnrow.cpp \
+  qt/dappcoin/masternodeswidget.cpp \
+  qt/dappcoin/myaddressrow.cpp \
+  qt/dappcoin/csrow.cpp \
+  qt/dappcoin/sendchangeaddressdialog.cpp \
+  qt/dappcoin/sendconfirmdialog.cpp \
+  qt/dappcoin/sendcustomfeedialog.cpp \
+  qt/dappcoin/sendchangeaddressdialog.cpp \
+  qt/dappcoin/sendmultirow.cpp \
+  qt/dappcoin/send.cpp \
+  qt/dappcoin/addnewaddressdialog.cpp \
+  qt/dappcoin/addnewcontactdialog.cpp \
+  qt/dappcoin/requestdialog.cpp \
+  qt/dappcoin/receivewidget.cpp \
+  qt/dappcoin/tooltipmenu.cpp \
+  qt/dappcoin/addresseswidget.cpp \
+  qt/dappcoin/defaultdialog.cpp \
+  qt/dappcoin/denomgenerationdialog.cpp \
+  qt/dappcoin/privacywidget.cpp \
+  qt/dappcoin/coldstakingwidget.cpp \
+  qt/dappcoin/settings/settingsbackupwallet.cpp \
+  qt/dappcoin/settings/settingsbittoolwidget.cpp \
+  qt/dappcoin/settings/settingsconsolewidget.cpp \
+  qt/dappcoin/settings/settingsdisplayoptionswidget.cpp \
+  qt/dappcoin/settings/settingsfaqwidget.cpp \
+  qt/dappcoin/settings/settingsinformationwidget.cpp \
+  qt/dappcoin/settings/settingsmainoptionswidget.cpp \
+  qt/dappcoin/settings/settingsmultisenddialog.cpp \
+  qt/dappcoin/settings/settingsmultisendwidget.cpp \
+  qt/dappcoin/settings/settingssignmessagewidgets.cpp \
+  qt/dappcoin/settings/settingswalletoptionswidget.cpp \
+  qt/dappcoin/settings/settingswalletrepairwidget.cpp \
+  qt/dappcoin/settings/settingswidget.cpp \
+  qt/dappcoin/welcomecontentwidget.cpp \
+  qt/dappcoin/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/splash.png \
+  qt/res/images/splash_testnet.png \
+  qt/res/images/splash_regtest.png \
+  qt/res/images/dappcoin_logo_horizontal.png \
+  qt/res/images/downArrow_dark.png \
+  qt/res/images/downArrow_small_dark.png \
+  qt/res/images/downArrow_small.png \
+  qt/res/images/upArrow_small_dark.png \
+  qt/res/images/upArrow_small.png \
+  qt/res/images/leftArrow_small_dark.png \
+  qt/res/images/rightArrow_small_dark.png \
+  qt/res/images/qtreeview_selected.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/dappcoin/res/css/style_dark.css \
+  qt/dappcoin/res/css/style_light.css
+
+RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
+
+BITCOIN_RC = qt/res/dappcoin-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+  $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_dappcoin_qt_OBJECTS) : | $(QT_MOC)
+
+#Generating these with a half-written protobuf header leads to wacky results.
+#This makes sure it's done.
+$(QT_MOC): $(PROTOBUF_H)
+$(QT_MOC_CPP): $(PROTOBUF_H)
+
+# dappcoin-qt binary #
+qt_dappcoin_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_dappcoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_dappcoin_qt_SOURCES = qt/dappcoin.cpp
+if TARGET_DARWIN
+  qt_dappcoin_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_dappcoin_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_dappcoin_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_dappcoin_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_dappcoin_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_dappcoin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+qt_dappcoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_dappcoin_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/dappcoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/dappcoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/dappcoin.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/dappcoin_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name dappcoin_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(RES_MOVIES) $(PROTOBUF_H)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name dappcoin $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_dappcoin_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+dappcoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_dappcoin_qt_OBJECTS) qt/dappcoin-qt$(EXEEXT) $(LIBBITCOINQT)
+
+dappcoin_qt : qt/dappcoin-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

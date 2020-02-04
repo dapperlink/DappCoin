@@ -1,0 +1,33 @@
+# /etc/conf.d/dappcoind: config file for /etc/init.d/dappcoind
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/dappcoin/dappcoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/dappcoind"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/dappcoind.pid"
+
+# Where to write dappcoind data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/dappcoind"
+
+# User and group to own dappcoind process
+#BITCOIND_USER="dappcoin"
+#BITCOIND_GROUP="dappcoin"
+
+# Path to dappcoind executable
+#BITCOIND_BIN="/usr/bin/dappcoind"
+
+# Nice value to run dappcoind under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#BITCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for bitcoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+BITCOIND_SIGTERM_TIMEOUT=60
